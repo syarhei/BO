@@ -1,0 +1,30 @@
+{
+  "user": {
+    "POST": [
+      "/api/sessions",
+      "/api/users",
+      "/api/bets"
+    ],
+    "GET": [
+      "/api/teams",
+      "/api/matches",
+      "/api/bets",
+      "/api/users"
+    ],
+    "DELETE": [
+      "/api/sessions",
+      "/api/bets",
+      "/api/users"
+    ]
+  },
+  "guest": {
+    "POST": [
+      "/api/sessions",
+      "/api/users"
+    ],
+    "GET": [
+      "/api/teams",
+      "/api/matches"
+    ]
+  }
+}

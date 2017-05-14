@@ -1,0 +1,13 @@
+{
+  "database": {
+    "name": "course",
+    "hostname": "localhost",
+    "user": "root",
+    "password": "root",
+    "dialect": "mysql"
+  },
+  "jwt": {
+    "key": "gTfgGWge5g32ghF",
+    "time": 86400
+  }
+}
