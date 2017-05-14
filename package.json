@@ -1,0 +1,29 @@
+{
+  "name": "bookmaker-office",
+  "version": "1.0.0",
+  "description": "Course Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syarhei/BO.git"
+  },
+  "author": "Sergei Murkou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/syarhei/BO/issues"
+  },
+  "homepage": "https://github.com/syarhei/BO#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.2",
+    "jsonwebtoken": "^7.4.0",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.4"
+  }
+}
