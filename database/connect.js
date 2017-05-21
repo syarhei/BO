@@ -4,6 +4,8 @@ const config = require('../config.json');
 
 module.exports = (sequelize) => {
 
+    const database = process.env.NODE_ENV === 'production' ? config.pg : config.database;
+
     let options = {
         define: {
             paranoid: false,
@@ -11,7 +13,7 @@ module.exports = (sequelize) => {
         }
     };
 
-    let connect = new sequelize(config.database.name, config.database.user, config.database.password, options);
+    let connect = new sequelize(database.name, database.user, database.password, options);
     let team = require('../models/team') (sequelize, connect);
     let match = require('../models/match') (sequelize, connect, team);
     let client = require('../models/client') (sequelize, connect);

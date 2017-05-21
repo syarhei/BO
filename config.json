@@ -6,6 +6,13 @@
     "password": "root",
     "dialect": "mysql"
   },
+  "pg": {
+    "dialect": "postgres",
+    "host": "ec2-54-225-107-107.compute-1.amazonaws.com",
+    "name": "d84jgv0lnj6d0v",
+    "user": "qimjkxphboeutm",
+    "password": "bbf5427b0265d59da76cc7a446824eac46675cb355ad8711383545eccf8e74e9"
+  },
   "jwt": {
     "key": "gTfgGWge5g32ghF",
     "time": 86400

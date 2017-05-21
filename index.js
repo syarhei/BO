@@ -30,7 +30,7 @@ app.use('/api', api);
 
 connect.sequelize.sync().then(
     () => {
-        app.listen(3300, () => {
+        app.listen(process.env.PORT || 3300, () => {
             console.log('course start');
         })
     }
