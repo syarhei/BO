@@ -7,6 +7,8 @@ module.exports = (sequelize) => {
     const database = process.env.NODE_ENV === 'production' ? config.pg : config.database;
 
     let options = {
+        host: database.host,
+        dialect: database.dialect,
         define: {
             paranoid: false,
             timestamps: false
