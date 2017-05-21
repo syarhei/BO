@@ -6,13 +6,14 @@
     <script src="css/jquery-3.0.0.min.js"></script>
     <script src="css/jquery-migrate-1.4.1.min.js"></script>
     <meta charset="UTF-8">
-    <title>BO</title>
+    <title>Welcome | BO</title>
 
 </head>
 <body>
     <div>
         <header></header>
     </div>
+
     <div align="center">
     <form>
         <p>
@@ -28,7 +29,7 @@
         </p>
         <p>
             <input type="button" value="sign in" id="SingIn" onclick="signIn()">
-            <input type="button" value="sign out" id="SingOut" style="margin-left: 26px">
+            <input type="button" value="sign out" id="SingOut" onclick="signUp()">
         </p>
     </form>
     </div>
@@ -44,12 +45,19 @@
                 data: user,
                 url: '/api/sessions',
                 success: (result) => {
-                    alert(result.message);
+                    if (result.message == undefined)
+                        alert(result.error);
+                    else
+                        alert(result.message);
                 },
                 error: (error) => {
                     alert(error);
                 }
             });
+        }
+
+        function signUp() {
+            window.location.href = 'register.html';
         }
     </script>
 
