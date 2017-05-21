@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (sequelize, connect, match, client) => {
     return connect.define('bet', {
         id_bet: {

@@ -1,0 +1,44 @@
+body {
+    margin-top: 15%;
+    font-family: "Segoe UI";
+    background: #bbbbbb;
+}
+p {
+    margin: 10px 0;
+}
+label {
+    font-size: 18pt;
+    font-family: "Segoe UI";
+    color: #000000;
+}
+input[type="text"] {
+    font-size: 16pt;
+    background-color: #b1c7a7;
+    border: 1px solid #5e7850;
+    border-radius: 5px;
+    height: 30px;
+    width: 250px;
+    color: #000000;
+    padding: 0 10px;
+    vertical-align: top;
+}
+input[type="password"] {
+    font-size: 16pt;
+    background-color: #b1c7a7;
+    border: 1px solid #5e7850;
+    border-radius: 5px;
+    height: 30px;
+    width: 250px;
+    color: #000000;
+    padding: 0 10px;
+    vertical-align: top;
+}
+input[type="button"] {
+    font-size: 16pt;
+    color: #000000;
+    background-color: #b1c7a7;
+    border: 1px solid #5e7850;
+    border-radius: 5px;
+    height: 30px;
+    width: 250px;
+}

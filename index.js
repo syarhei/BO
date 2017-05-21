@@ -1,3 +1,5 @@
+'use strict';
+
 const sequelize = require('sequelize');
 const express = require('express');
 const body_parser = require('body-parser');

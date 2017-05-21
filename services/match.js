@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (matchService) => {
     function getMatchServices(matchService) {
         this.getMatches = getMatches;

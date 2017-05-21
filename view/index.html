@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/input.css"/>
+    <script src="css/jquery-3.0.0.min.js"></script>
+    <script src="css/jquery-migrate-1.4.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>BO</title>
+
+</head>
+<body>
+    <div>
+        <header></header>
+    </div>
+    <div align="center">
+    <form>
+        <p>
+            <label>
+                Bookmaker Office
+            </label>
+        </p>
+        <p>
+            <input type="text" id="nickname" placeholder="username"> <br>
+        </p>
+        <p>
+            <input type="password" id="password" placeholder="password"> <br>
+        </p>
+        <p>
+            <input type="button" value="sign in" id="SingIn" onclick="signIn()">
+            <input type="button" value="sign out" id="SingOut" style="margin-left: 26px">
+        </p>
+    </form>
+    </div>
+
+    <script>
+        function signIn() {
+            let user = {
+                nickname: document.getElementById("nickname").value,
+                password: document.getElementById("password").value
+            };
+            $.ajax({
+                type: 'post',
+                data: user,
+                url: '/api/sessions',
+                success: (result) => {
+                    alert(result.message);
+                },
+                error: (error) => {
+                    alert(error);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

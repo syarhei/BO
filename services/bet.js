@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (betService) => {
     function getBetServices(betService) {
         this.getBets = getBets;

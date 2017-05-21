@@ -1,0 +1,22 @@
+#lb {
+    margin-left: 9%;
+}
+
+.WebElement {
+    height: 30px;
+    width: 250px;
+
+    color: #c8c3bb;
+}
+
+
+#SingIn {
+    height: 30px;
+    width: 120px;
+}
+
+#SingOut {
+    height: 30px;
+    width: 120px;
+    margin-left: 25px;
+}

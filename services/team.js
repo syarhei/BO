@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (teamService) => {
 
     function getTeamServices(teamService) {

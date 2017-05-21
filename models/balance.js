@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (sequelize, connect) => {
     return connect.define('balance', {
         id_operation: {

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (sequelize, connect) => {
     return connect.define('team', {
         full_name: {

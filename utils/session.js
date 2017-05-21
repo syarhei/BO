@@ -1,3 +1,5 @@
+'use strict';
+
 const jwt = require('jsonwebtoken');
 const config = require('../config.json');
 const permissions = require('../permissions.json');
@@ -11,8 +13,7 @@ module.exports = () => {
             if (path_method == method) {
                 let urls = paths[path_method];
                 for (let url in urls) {
-                    let str = RegExp("^" + urls[url]);
-                    if (str.exec(path) != null)
+                    if (urls[url] == path)
                         isIn = true;
                 }
             }

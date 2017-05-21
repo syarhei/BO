@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (sequelize, connect, team) => {
     return connect.define('match', {
         id_match: {
