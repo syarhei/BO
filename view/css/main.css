@@ -1,0 +1,16 @@
+body {
+    font-family: "Segoe UI";
+    background: #bbbbbb;
+}
+a {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: white;
+    vertical-align: middle;
+}
+.Header {
+    background: #444444;
+    width: 100%;
+    height: 80px;
+    margin: auto;
+}
