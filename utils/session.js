@@ -39,6 +39,7 @@ module.exports = () => {
                 if (data == undefined) response.json("Login, token is timing off");
                 response.nickname = data.nickname;  // как другим способом отправить имя в следующий запрос
                 let client_type = data.client_type;
+                console.log("|" + client_type + "|");
                 if (client_type == 'admin') next();
                 else {
                     let isIn = checkPermission(client_type, method, path);
