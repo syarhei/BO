@@ -1,46 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <style>
-
-        .Panel {
-            background: #c8c3bb;
-            width: 100%;
-            height: 80px;
-        }
-
-        .Content {
-            background: red;
-            margin-left: 15%;
-            margin-right: 15%;
-            width: 70%;
-            float: left;
-            height: 300px;
-        }
-
-    </style>
-
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css"/>
+    <script src="lib/jquery-3.0.0.min.js"></script>
+    <script src="lib/jquery-migrate-1.4.1.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main | BO</title>
 </head>
 <body>
-
-<div class="Panel">
-
+<div class="Header" align="center">
+    <div class="A">
+        <a href="teams.html">Команды</a>
+        <a href="matches.html">Матчи</a>
+        <a href="bets.html">Ставки</a>
+    </div>
+    <div class="User">
+        <div class="dropdown pull-right">
+            <a id="a" href="#" data-toggle="dropdown" class="dropdown-toggle">
+                guest
+            </a>
+            <ul id="menu" class="dropdown-menu">
+                <li><a href="#">Баланс</a></li>
+                <li><a href="#"onclick="deleteSession()">Выйти</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
+<div>
+    <table id="tb" align="center">
 
-<div class="SideBar">
-
+    </table>
 </div>
+<script>
+    getUsername();
+    function getUsername() {
+        $.ajax({
+            type: 'get',
+            url: '/api/users/nickname',
+            success: (result) => {
+                if (result.message == undefined)
+                    if (result.error == 'Not permissions')
+                        document.getElementById("a").text = 'guest';
+                    else
+                        alert(result.error);
+                else {
+                    document.getElementById("a").text = result.message;
+                }
+            }
+        })
+    }
 
-<div class="Content">
-
-</div>
-
-<div class="RightBar">
-
-</div>
-
+    function deleteSession() {
+        $.ajax({
+            type: 'delete',
+            url: '/api/sessions',
+            success: (result) => {
+                window.location.href = '/';
+            }
+        })
+    }
+</script>
 </body>
 </html>

@@ -1,10 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css"/>
+    <script src="lib/jquery-3.0.0.min.js"></script>
+    <script src="lib/jquery-migrate-1.4.1.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
     <meta charset="UTF-8">
-    <title>teams</title>
+    <title>Main | BO</title>
 </head>
 <body>
+<div class="Header" align="center">
+    <div class="A">
+        <a href="teams.html">Команды</a>
+        <a href="matches.html">Матчи</a>
+        <a href="bets.html">Ставки</a>
+    </div>
+    <div class="User">
+        <div class="dropdown pull-right">
+            <a id="a" href="#" data-toggle="dropdown" class="dropdown-toggle">
+                guest
+            </a>
+            <ul id="menu" class="dropdown-menu">
+                <li><a href="#">Баланс</a></li>
+                <li><a href="#"onclick="deleteSession()">Выйти</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div>
+    <table id="tb" align="center">
+        <tr>
+            <th>команда</th>
+            <th>владелец</th>
+            <th>год</th>
+            <th>игр</th>
+            <th>побел</th>
+            <th>ничьих</th>
+            <th>поражений</th>
+            <th>очков</th>
+        </tr>
+    </table>
+</div>
+<div style="margin-top: 20px" align="center">
+    <input id="full_name" class="Team" type="text" placeholder="название">
+    <input id="owner" class="Team" type="text" placeholder="владелец">
+    <input id="year" class="Team" type="text" placeholder="год">
+    <input class="Team" type="button" value="Добавить" style="margin-left: 20px" onclick="">
+</div>
+<script>
+    getUsername();
+    getTeams();
 
+    function getUsername() {
+        $.ajax({
+            type: 'get',
+            url: '/api/users/nickname',
+            success: (result) => {
+                if (result.message == undefined)
+                    if (result.error == 'Not permissions')
+                        document.getElementById("a").text = 'guest';
+                    else
+                        alert(result.error);
+                else {
+                    document.getElementById("a").text = result.message;
+                }
+            }
+        })
+    }
+
+    function deleteSession() {
+        $.ajax({
+            type: 'delete',
+            url: '/api/sessions',
+            success: (result) => {
+                window.location.href = '/';
+            }
+        })
+    }
+
+    function getTeams() {
+        $.ajax({
+            type: 'get',
+            url: '/api/teams?limit=5&offset=1',
+            success: (result) => {
+                let tableBody = document.createElement("tbody");
+                for (let i = 0; i < result.length; i++) {
+                    let row = document.createElement("tr");
+                    for (let e in result[i]) {
+                        if (result[i].hasOwnProperty(e)) {
+                            let cell = document.createElement("td");
+                            let cellText = document.createTextNode(result[i][e]);
+                            cell.appendChild(cellText);
+                            row.appendChild(cell);
+                        }
+
+                    }
+                    tableBody.appendChild(row);
+                }
+                document.getElementById("tb").appendChild(tableBody);
+            }
+        })
+    }
+    
+    function addTeam() {
+        let team = {
+            full_name: document.getElementById("full_name").value,
+            owner: document.getElementById("owner").value,
+            year_foundation: document.getElementById("year").value,
+        };
+        $.ajax({
+            type: 'post',
+            data: team,
+            url: 'api/teams',
+            success: (result) => {
+                getTeams();
+            }
+        })
+    }
+    
+</script>
 </body>
 </html>

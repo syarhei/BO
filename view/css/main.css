@@ -3,6 +3,7 @@ body {
     background: #8c8c8c;
     margin: 0;
     color: white;
+    font-size: 16px;
 }
 a {
     margin-left: 20px;
@@ -39,7 +40,31 @@ A:focus {
     text-align: right;
     float: right;
 }
-.User label {
-    color: white;
-    padding-right: 15px;
+
+table {
+    border-collapse: collapse;
+    background-color: #e9e6db;
+    color: #444444;
+    margin-top: 20px;
+}
+
+table, td, th {
+    border: 2px solid #444444;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+table input{
+    width: 190px;
+}
+
+.Team {
+    height: 30px;
+    width: 100px;
+    color: #444444;
+    background-color: #c8c3bb;
+    border: none;
+    text-align: center;
+    border-radius: 5px;
 }
