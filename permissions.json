@@ -9,7 +9,8 @@
       "/api/teams",
       "/api/matches",
       "/api/bets",
-      "/api/users"
+      "/api/users",
+      "/api/users/nickname"
     ],
     "DELETE": [
       "/api/sessions",

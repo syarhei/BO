@@ -15,14 +15,18 @@ module.exports = (clientController) => {
             response.json(error);
         })
     });
-
+/*
     client.get('/:nickname', (request, response) => {
         let nickname = response.nickname;
         let params = request.params;
         if (nickname != 'admin' && nickname != params.nickname)
             response.json({error: "Not permissions"});
         else
-            response.json({message: "Hello, " + nickname});
+            response.json({message: nickname});
+    });
+*/
+    client.get('/nickname', (request, response) => {
+        response.json({ message: response.nickname });
     });
 
     // регистрация

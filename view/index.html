@@ -46,8 +46,9 @@
                 success: (result) => {
                     if (result.message == undefined)
                         alert(result.error);
-                    else
-                        alert(result.message);
+                    else {
+                        window.location.href = 'main.html';
+                    }
                 },
                 error: (error) => {
                     alert(error);

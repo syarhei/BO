@@ -1,16 +1,34 @@
 body {
     font-family: "Segoe UI";
-    background: #bbbbbb;
+    background: #8c8c8c;
+    margin: 0;
+    color: white;
 }
 a {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
     color: white;
-    vertical-align: middle;
+    text-decoration: none;
+
 }
 .Header {
     background: #444444;
     width: 100%;
-    height: 80px;
-    margin: auto;
+    /* height: 80px; */
+    text-align: center;
+    vertical-align: middle;
+    padding: 15px 0 20px;
+    display: inline-block;
+}
+.A {
+    display: inline-block;
+}
+.User {
+    display: inline-block;
+    text-align: right;
+    float: right;
+}
+.User label {
+    color: white;
+    padding-right: 15px;
 }

@@ -9,9 +9,38 @@
 </head>
 <body>
     <div class="Header" align="center">
-        <a href="bets.html">Ставки</a>
-        <a href="bets.html">Ставки</a>
-        <a href="bets.html">Ставки</a>
+        <div class="A">
+            <a href="bets.html">Команды</a>
+            <a href="bets.html">Матчи</a>
+            <a href="bets.html">Ставки</a>
+        </div>
+        <div class="User">
+            <a id="a" onclick="getDropDown()" >
+
+            </a>
+        </div>
     </div>
+    <script>
+        getUsername();
+        function getDropDown() {
+            document.getElementById("a").text = 'sergei';
+        }
+        function getUsername() {
+            $.ajax({
+                type: 'get',
+                url: '/api/users/nickname',
+                success: (result) => {
+                    if (result.message == undefined)
+                        if (result.error == 'Not permissions')
+                            document.getElementById("a").text = 'guest';
+                        else
+                            alert(result.error);
+                    else {
+                        document.getElementById("a").text = result.message;
+                    }
+                }
+            })
+        }
+    </script>
 </body>
 </html>
