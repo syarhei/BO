@@ -11,6 +11,17 @@ a {
     text-decoration: none;
 
 }
+A:link, A:visited, A:active {
+    text-decoration: none;
+}
+A:hover {
+    text-decoration: none; /* Делает ссылку подчеркнутой при наведении на нее курсора */
+    color: #8c8c8c; /* Цвет ссылки */
+}
+A:focus {
+    text-decoration: none; /* Делает ссылку подчеркнутой при наведении на нее курсора */
+    color: #8c8c8c; /* Цвет ссылки */
+}
 .Header {
     background: #444444;
     width: 100%;

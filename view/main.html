@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/main.css"/>
-    <script src="css/jquery-3.0.0.min.js"></script>
-    <script src="css/jquery-migrate-1.4.1.min.js"></script>
+    <script src="lib/jquery-3.0.0.min.js"></script>
+    <script src="lib/jquery-migrate-1.4.1.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>Main | BO</title>
 </head>
@@ -15,16 +18,19 @@
             <a href="bets.html">Ставки</a>
         </div>
         <div class="User">
-            <a id="a" onclick="getDropDown()" >
-
-            </a>
+            <div class="dropdown pull-right">
+                <a id="a" href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    guest
+                </a>
+                <ul id="menu" class="dropdown-menu">
+                    <li><a href="#">Баланс</a></li>
+                    <li><a href="#"onclick="deleteSession()">Выйти</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <script>
         getUsername();
-        function getDropDown() {
-            document.getElementById("a").text = 'sergei';
-        }
         function getUsername() {
             $.ajax({
                 type: 'get',
@@ -38,6 +44,16 @@
                     else {
                         document.getElementById("a").text = result.message;
                     }
+                }
+            })
+        }
+
+        function deleteSession() {
+            $.ajax({
+                type: 'delete',
+                url: '/api/sessions',
+                success: (result) => {
+                    window.location.href = '/';
                 }
             })
         }

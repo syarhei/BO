@@ -12,7 +12,7 @@ label {
     color: white;
 }
 input[type="text"] {
-    font-size: 16pt;
+    font-size: 14pt;
     background-color: #c8c3bb;;
     border: 2px solid #444444;
     border-radius: 5px;
@@ -23,7 +23,7 @@ input[type="text"] {
     vertical-align: top;
 }
 input[type="password"] {
-    font-size: 16pt;
+    font-size: 14pt;
     background-color: #c8c3bb;
     border: 2px solid #444444;
     border-radius: 5px;
@@ -34,7 +34,7 @@ input[type="password"] {
     vertical-align: top;
 }
 input[type="button"] {
-    font-size: 16pt;
+    font-size: 14pt;
     color: #444444;
     background-color: #c8c3bb;
     border: 2px solid #444444;
