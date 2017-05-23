@@ -68,11 +68,22 @@ module.exports = (betService) => {
             })
         }
 
-        function deleteBet(options, client) {
+        function deleteBet(options, client, client_type) {
+            if (client_type == 'admin')
+                return deleteBetAdmin(options);
+            else
+                return new Promise((resolve, reject) => {
+                    betService.destroy({ where: {
+                        id_bet: options.id_bet,
+                        nickname: client
+                    }}).then(resolve).catch(reject);
+            })
+        }
+
+        function deleteBetAdmin(options) {
             return new Promise((resolve, reject) => {
                 betService.destroy({ where: {
-                    id_bet: options.id_bet,
-                    nickname: client
+                    id_bet: options.id_bet
                 }}).then(resolve).catch(reject);
             })
         }

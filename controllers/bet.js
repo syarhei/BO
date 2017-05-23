@@ -40,12 +40,18 @@ module.exports = (betController, clientController) => {
     bet.delete('/', (request, response) => {
         let params = request.body;
         let nickname = response.nickname;
+        let client_type = response.client_type;
         betController.getBet_byId(params.id_bet).then((bet) => {
             if (bet == undefined) throw ({message: "id_bet is undefined"});
-            clientController.updateBalance_createBet({ cost: bet.cost, nickname: nickname }).then((data) => {
-                betController.deleteBet(params, nickname).then((result) => {
+            if (bet.isFinished == 'Y')
+                betController.deleteBet(params, nickname, client_type).then((result) => {
                     response.json(result);
-                })
+                });
+            else
+                clientController.updateBalance_createBet({ cost: bet.cost, nickname: nickname }).then((data) => {
+                    betController.deleteBet(params, nickname, client_type).then((result) => {
+                        response.json(result);
+                    })
             })
         }).catch((error) => {
             response.json(error);

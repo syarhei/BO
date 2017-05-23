@@ -29,6 +29,15 @@ module.exports = (clientController) => {
         response.json({ message: response.nickname, client_type: response.client_type });
     });
 
+    client.get('/balance', (request, response) => {
+        let nickname = response.nickname;
+        clientController.getClient_byId({ nickname: nickname }).then((result) => {
+            response.json({ balance: result.balance });
+        }).catch((error) => {
+            response.json(error);
+        })
+    });
+
     // регистрация
     client.post('/', (request, response) => {
         let params = request.body;

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/main.css"/>
     <script src="lib/jquery-3.0.0.min.js"></script>
     <script src="lib/jquery-migrate-1.4.1.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
-    <meta charset="UTF-8">
     <title>Main | BO</title>
 </head>
 <body>
@@ -23,19 +23,35 @@
                 guest
             </a>
             <ul id="menu" class="dropdown-menu">
-                <li><a href="#">Баланс</a></li>
-                <li><a href="#"onclick="deleteSession()">Выйти</a></li>
+                <li><a href="#" onclick="getBalance()">Баланс</a></li>
+                <li><a href="#" onclick="deleteSession()">Выйти</a></li>
             </ul>
         </div>
     </div>
 </div>
 <div>
     <table id="tb" align="center">
-
+        <tr>
+            <th>ставка</th>
+            <th>матч</th>
+            <th>пользователь</th>
+            <th>цена</th>
+            <th>результат</th>
+            <th>завершена</th>
+            <th id="del"></th>
+        </tr>
     </table>
 </div>
-<script>
+<div id="add" style="margin-top: 20px; visibility: hidden" align="center">
+    <input id="id_match" class="Team" type="text" placeholder="матч">
+    <input id="cost" class="Team" type="text" placeholder="цена">
+    <input id="result" class="Team" type="text" placeholder="результат">
+    <input class="Team" type="button" value="Добавить" style="margin-left: 20px" onclick="addBet()">
+</div>
+<script type="text/javascript">
+
     getUsername();
+
     function getUsername() {
         $.ajax({
             type: 'get',
@@ -48,7 +64,11 @@
                         alert(result.error);
                 else {
                     document.getElementById("a").text = result.message;
+                    if (result.client_type == 'user') {
+                        document.getElementById("add").style.visibility = "visible";
+                    }
                 }
+                getBets(result.client_type);
             }
         })
     }
@@ -62,6 +82,88 @@
             }
         })
     }
+
+    function getBets(type) {
+        $.ajax({
+            type: 'get',
+            url: '/api/bets?limit=20&offset=1',
+            success: (result) => {
+                let tableBody = document.createElement("tbody");
+                for (let i = 0; i < result.length; i++) {
+                    let row = document.createElement("tr");
+                    for (let e in result[i]) {
+                        if (result[i].hasOwnProperty(e)) {
+                            let cell = document.createElement("td");
+                            let cellText = document.createTextNode(result[i][e]);
+                            cell.appendChild(cellText);
+                            row.appendChild(cell);
+                        }
+                    }
+                    if (type == 'admin' || type == 'user') {
+                        let cell = document.createElement("td");
+                        let button = document.createElement('input');
+                        button.setAttribute('type', 'button');
+                        button.setAttribute('value', 'Удалить');
+                        let name = result[i].id_bet;
+                        button.setAttribute('onclick', 'deleteBet("' + name + '")');
+                        button.className = "Team";
+                        cell.appendChild(button);
+                        row.appendChild(cell);
+                    }
+                    tableBody.appendChild(row);
+                }
+                document.getElementById("tb").appendChild(tableBody);
+            }
+        })
+    }
+
+    function addBet() {
+        let bet = {
+            id_match: document.getElementById("id_match").value,
+            cost: document.getElementById("cost").value,
+            result: document.getElementById("result").value,
+        };
+        $.ajax({
+            type: 'post',
+            data: bet,
+            url: 'api/bets',
+            success: (result) => {
+                clearTable();
+                getUsername();
+            }
+        })
+    }
+
+    function deleteBet(name) {
+        $.ajax({
+            type: 'delete',
+            data: { id_bet: name },
+            url: 'api/bets',
+            success: (result) => {
+                clearTable();
+                getUsername();
+            }
+        })
+    }
+
+    function getBalance() {
+        $.ajax({
+            type: 'get',
+            url: 'api/users/balance',
+            success: (result) => {
+                alert(result.balance);
+                console.log(result.balance);
+            }
+        })
+    }
+
+    function clearTable() {
+        let table = document.getElementById("tb");
+        while (table.rows.length > 1) {
+            table.deleteRow(1);
+        }
+    }
+
 </script>
 </body>
 </html>

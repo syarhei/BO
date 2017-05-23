@@ -41,7 +41,7 @@
             <th>место</th>
             <th>результат</th>
             <th id="del" style="display: none"></th>
-            <th id="bet" style="display: none"></th>
+            <th id="gen" style="display: none"></th>
         </tr>
     </table>
 </div>
@@ -69,7 +69,8 @@
                     document.getElementById("a").text = result.message;
                     if (result.client_type == 'admin') {
                         document.getElementById("add").style.visibility = "visible";
-                        document.getElementById("del").style.display = "inherit";
+                        document.getElementById("del").style.display = "table-cell";
+                        document.getElementById("gen").style.display = "table-cell";
                     }
                 }
                 getMatches(result.client_type);
@@ -108,15 +109,36 @@
                         let button = document.createElement('input');
                         button.setAttribute('type', 'button');
                         button.setAttribute('value', 'Удалить');
-                        let name = result[i].full_name;
-                        button.setAttribute('onclick', 'deleteMatch(' + name + ')');
+                        let id = result[i].id_match;
+                        button.setAttribute('onclick', 'deleteMatch("' + id + '")');
                         button.className = "Team";
                         cell.appendChild(button);
                         row.appendChild(cell);
+
+                        let cell2 = document.createElement("td");
+                        let button2 = document.createElement('input');
+                        button2.setAttribute('type', 'button');
+                        button2.setAttribute('value', 'Результат');
+                        let id2 = result[i].id_match;
+                        button2.setAttribute('onclick', 'generateResult("' + id2 + '")');
+                        button2.className = "Team";
+                        cell2.appendChild(button2);
+                        row.appendChild(cell2);
                     }
                     tableBody.appendChild(row);
                 }
                 document.getElementById("tb").appendChild(tableBody);
+            }
+        })
+    }
+
+    function generateResult(id) {
+        $.ajax({
+            type: 'post',
+            url: 'api/matches/' + id + '/results/generation',
+            success: (result) => {
+                clearTable();
+                getUsername();
             }
         })
     }
