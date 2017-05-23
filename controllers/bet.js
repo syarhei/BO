@@ -48,8 +48,8 @@ module.exports = (betController, clientController) => {
                     response.json(result);
                 });
             else
-                clientController.updateBalance_createBet({ cost: bet.cost, nickname: nickname }).then((data) => {
-                    betController.deleteBet(params, nickname, client_type).then((result) => {
+                clientController.updateBalance_createBet({ cost: bet.cost, nickname: bet.nickname }).then((data) => {
+                    betCozntroller.deleteBet(params, nickname, client_type).then((result) => {
                         response.json(result);
                     })
             })
