@@ -8,10 +8,10 @@
   },
   "pg": {
     "dialect": "postgres",
-    "host": "ec2-54-225-107-107.compute-1.amazonaws.com",
-    "name": "d84jgv0lnj6d0v",
-    "user": "qimjkxphboeutm",
-    "password": "bbf5427b0265d59da76cc7a446824eac46675cb355ad8711383545eccf8e74e9"
+    "host": "ec2-54-163-246-154.compute-1.amazonaws.com",
+    "name": "db664pv55tsn0e",
+    "user": "ragadyvqraycwu",
+    "password": "dbc37218551230842592d5b44fc994054a7296abb3131ab2aab4bc3ef17382b8"
   },
   "jwt": {
     "key": "gTfgGWge5g32ghF",
