@@ -8,14 +8,14 @@ module.exports = (sequelize, connect, team) => {
             autoIncrement: true
         },
         id_team_1: {
-            type: sequelize.CHAR(20),
+            type: sequelize.STRING(20),
             references: {
                 model: team,
                 key: 'full_name'
             },
         },
         id_team_2: {
-            type: sequelize.CHAR(20),
+            type: sequelize.STRING(20),
             references: {
                 model: team,
                 key: 'full_name'
@@ -33,7 +33,7 @@ module.exports = (sequelize, connect, team) => {
             type: sequelize.REAL,
             allowNull: false,
         },
-        place: sequelize.CHAR(20),
-        result: sequelize.CHAR(2),
+        place: sequelize.STRING(20),
+        result: sequelize.STRING(2),
     })
 };

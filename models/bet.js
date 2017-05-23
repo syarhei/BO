@@ -15,7 +15,7 @@ module.exports = (sequelize, connect, match, client) => {
             },
         },
         nickname: {
-            type: sequelize.CHAR(20),
+            type: sequelize.STRING(20),
             references: {
                 model: client,
                 key: 'nickname'
@@ -27,19 +27,15 @@ module.exports = (sequelize, connect, match, client) => {
                 min: 0
             }
         },
-        result: sequelize.CHAR(2),  // ставка пользователя
+        result: {
+            type: sequelize.STRING(2),
+            validate: {
+                isIn: [['W1', 'D', 'W2']]
+            }
+        },  // ставка пользователя
         isFinished: {  //  завершена ли ставка или нет, когда ставка завершена - она не активна
             type: sequelize.CHAR(1),
             defaultValue: 'N'
         }
     })
 };
-
-/*
- true_result: {  // результат матча
- type: sequelize.CHAR(2),
- validate: {
- isIn: [['W1', 'D', 'W2']]
- }
- },
- */

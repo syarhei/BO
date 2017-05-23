@@ -1,6 +1,6 @@
 {
   "database": {
-    "name": "course",
+    "name": "crs",
     "hostname": "localhost",
     "user": "root",
     "password": "root",

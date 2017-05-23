@@ -3,17 +3,17 @@
 module.exports = (sequelize, connect) => {
     return connect.define('client', {
         nickname: {
-            type: sequelize.CHAR(20),
+            type: sequelize.STRING(20),
             primaryKey: true
         },
         password: {
-            type: sequelize.CHAR(20),
+            type: sequelize.STRING(20),
             validate: {
                 len: [8, 20]
             },
         },
         client_type: {
-            type: sequelize.CHAR(5),
+            type: sequelize.STRING(5),
             allowNull: false,
         },
         balance: {
@@ -22,7 +22,7 @@ module.exports = (sequelize, connect) => {
                 min: 0
             }
         },
-        address: sequelize.CHAR(20),
+        address: sequelize.STRING(20),
         sex: {
             type: sequelize.CHAR(1),
             validate: {

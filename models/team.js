@@ -3,11 +3,11 @@
 module.exports = (sequelize, connect) => {
     return connect.define('team', {
         full_name: {
-            type: sequelize.CHAR(20),
+            type: sequelize.STRING(20),
             primaryKey: true,
         },
         owner: {
-            type: sequelize.CHAR(20),
+            type: sequelize.STRING(20),
             allowNull: false,
         },
         year_foundation: {
