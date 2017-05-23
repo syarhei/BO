@@ -30,7 +30,6 @@ module.exports = (betController, clientController) => {
         clientController.updateBalance_createBet({ cost: -params.cost, nickname: nickname }).then((data) => {
             betController.createBet(params, nickname).then((result) => {
                 response.json(result);
-                
             })
         }).catch((error) => {
             response.json(error);

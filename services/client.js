@@ -35,18 +35,32 @@ module.exports = (clientService) => {
                 }}).then(resolve).catch(reject);
             })
         }
-        
-        function createClient(options) {
-            let client = {
-                nickname: options.nickname,
-                password: options.password,
-                client_type: 'user',
-                balance: 1000,
-                address: options.address,
-                sex: options.sex
-            };
+
+        function checkTable() {
             return new Promise((resolve, reject) => {
-                clientService.create(client).then(resolve).catch(reject);
+                clientService.findAll({}).then(resolve).catch(reject);
+            })
+        }
+
+        function createClient(options) {
+            return checkTable().then((result) => {
+                let type = 'user';
+                let balance = 50000;
+                if (result.length == 0) {
+                    type = 'admin';
+                    balance = 1000000;
+                }
+                let client = {
+                    nickname: options.nickname,
+                    password: options.password,
+                    client_type: type,
+                    balance: balance,
+                    address: options.address,
+                    sex: options.sex
+                };
+                return new Promise((resolve, reject) => {
+                    clientService.create(client).then(resolve).catch(reject);
+                });
             });
         }
 
