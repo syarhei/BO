@@ -38,6 +38,7 @@ module.exports = () => {
             jwt.verify(token, config.jwt.key, (error, data) => {
                 if (data == undefined) response.json("Login, token is timing off");
                 response.nickname = data.nickname;  // как другим способом отправить имя в следующий запрос
+                response.client_type = data.client_type;
                 let client_type = data.client_type;
                 console.log("|" + client_type + "|");
                 if (client_type == 'admin') next();

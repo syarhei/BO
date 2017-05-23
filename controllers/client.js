@@ -26,7 +26,7 @@ module.exports = (clientController) => {
     });
 */
     client.get('/nickname', (request, response) => {
-        response.json({ message: response.nickname });
+        response.json({ message: response.nickname, client_type: response.client_type });
     });
 
     // регистрация

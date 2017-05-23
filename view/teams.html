@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/main.css"/>
     <script src="lib/jquery-3.0.0.min.js"></script>
     <script src="lib/jquery-migrate-1.4.1.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
-    <meta charset="UTF-8">
     <title>Main | BO</title>
 </head>
 <body>
@@ -36,22 +36,23 @@
             <th>владелец</th>
             <th>год</th>
             <th>игр</th>
-            <th>побел</th>
+            <th>побед</th>
             <th>ничьих</th>
             <th>поражений</th>
             <th>очков</th>
+            <th id="del" style="display: none"></th>
         </tr>
     </table>
 </div>
-<div style="margin-top: 20px" align="center">
+<div id="add" style="margin-top: 20px; visibility: hidden" align="center">
     <input id="full_name" class="Team" type="text" placeholder="название">
     <input id="owner" class="Team" type="text" placeholder="владелец">
     <input id="year" class="Team" type="text" placeholder="год">
-    <input class="Team" type="button" value="Добавить" style="margin-left: 20px" onclick="">
+    <input class="Team" type="button" value="Добавить" style="margin-left: 20px" onclick="addTeam()">
 </div>
-<script>
+<script type="text/javascript">
+
     getUsername();
-    getTeams();
 
     function getUsername() {
         $.ajax({
@@ -65,7 +66,12 @@
                         alert(result.error);
                 else {
                     document.getElementById("a").text = result.message;
+                    if (result.client_type == 'admin') {
+                        document.getElementById("add").style.visibility = "visible";
+                        document.getElementById("del").style.display = "inherit";
+                    }
                 }
+                getTeams(result.client_type);
             }
         })
     }
@@ -80,7 +86,7 @@
         })
     }
 
-    function getTeams() {
+    function getTeams(type) {
         $.ajax({
             type: 'get',
             url: '/api/teams?limit=5&offset=1',
@@ -95,7 +101,17 @@
                             cell.appendChild(cellText);
                             row.appendChild(cell);
                         }
-
+                    }
+                    if (type == 'admin') {
+                        let cell = document.createElement("td");
+                        let button = document.createElement('input');
+                        button.setAttribute('type', 'button');
+                        button.setAttribute('value', 'Удалить');
+                        let name = result[i].full_name;
+                        button.setAttribute('onclick', 'deleteTeam("' + name + '")');
+                        button.className = "Team";
+                        cell.appendChild(button);
+                        row.appendChild(cell);
                     }
                     tableBody.appendChild(row);
                 }
@@ -103,7 +119,7 @@
             }
         })
     }
-    
+
     function addTeam() {
         let team = {
             full_name: document.getElementById("full_name").value,
@@ -115,11 +131,43 @@
             data: team,
             url: 'api/teams',
             success: (result) => {
+                clearTable();
+                getUsername();
+            }
+        })
+    }
+
+    function deleteTeam(name) {
+        $.ajax({
+            type: 'delete',
+            data: { full_name: name },
+            url: 'api/teams',
+            success: (result) => {
+                clearTable();
+                getUsername();
+            }
+        })
+    }
+
+    function deleteTeam1() {
+        $.ajax({
+            type: 'delete',
+            data: { full_name: document.getElementById("delete_name").value },
+            url: 'api/teams',
+            success: (result) => {
+                clearTable();
                 getTeams();
             }
         })
     }
-    
+
+    function clearTable() {
+        let table = document.getElementById("tb");
+        while (table.rows.length > 1) {
+            table.deleteRow(1);
+        }
+    }
+
 </script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/main.css"/>
     <script src="lib/jquery-3.0.0.min.js"></script>
     <script src="lib/jquery-migrate-1.4.1.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
-    <meta charset="UTF-8">
     <title>Main | BO</title>
 </head>
 <body>
@@ -31,11 +31,30 @@
 </div>
 <div>
     <table id="tb" align="center">
-
+        <tr>
+            <th>матч</th>
+            <th>команда</th>
+            <th>команда</th>
+            <th>W1</th>
+            <th>D</th>
+            <th>W2</th>
+            <th>место</th>
+            <th>результат</th>
+            <th id="del" style="display: none"></th>
+            <th id="bet" style="display: none"></th>
+        </tr>
     </table>
 </div>
-<script>
+<div id="add" style="margin-top: 20px; visibility: hidden" align="center">
+    <input id="team_1" class="Team" type="text" placeholder="команда">
+    <input id="team_2" class="Team" type="text" placeholder="команда">
+    <input id="place" class="Team" type="text" placeholder="место">
+    <input class="Team" type="button" value="Добавить" style="margin-left: 20px" onclick="addMatch()">
+</div>
+<script type="text/javascript">
+
     getUsername();
+
     function getUsername() {
         $.ajax({
             type: 'get',
@@ -48,7 +67,12 @@
                         alert(result.error);
                 else {
                     document.getElementById("a").text = result.message;
+                    if (result.client_type == 'admin') {
+                        document.getElementById("add").style.visibility = "visible";
+                        document.getElementById("del").style.display = "inherit";
+                    }
                 }
+                getMatches(result.client_type);
             }
         })
     }
@@ -62,6 +86,77 @@
             }
         })
     }
+
+    function getMatches(type) {
+        $.ajax({
+            type: 'get',
+            url: '/api/matches?limit=20&offset=1',
+            success: (result) => {
+                let tableBody = document.createElement("tbody");
+                for (let i = 0; i < result.length; i++) {
+                    let row = document.createElement("tr");
+                    for (let e in result[i]) {
+                        if (result[i].hasOwnProperty(e)) {
+                            let cell = document.createElement("td");
+                            let cellText = document.createTextNode(result[i][e]);
+                            cell.appendChild(cellText);
+                            row.appendChild(cell);
+                        }
+                    }
+                    if (type == 'admin') {
+                        let cell = document.createElement("td");
+                        let button = document.createElement('input');
+                        button.setAttribute('type', 'button');
+                        button.setAttribute('value', 'Удалить');
+                        let name = result[i].full_name;
+                        button.setAttribute('onclick', 'deleteMatch(' + name + ')');
+                        button.className = "Team";
+                        cell.appendChild(button);
+                        row.appendChild(cell);
+                    }
+                    tableBody.appendChild(row);
+                }
+                document.getElementById("tb").appendChild(tableBody);
+            }
+        })
+    }
+
+    function addMatch() {
+        let match = {
+            id_team_1: document.getElementById("team_1").value,
+            id_team_2: document.getElementById("team_2").value,
+            place: document.getElementById("place").value,
+        };
+        $.ajax({
+            type: 'post',
+            data: match,
+            url: 'api/matches',
+            success: (result) => {
+                clearTable();
+                getUsername();
+            }
+        })
+    }
+
+    function deleteMatch(name) {
+        $.ajax({
+            type: 'delete',
+            data: { id_match: name },
+            url: 'api/matches',
+            success: (result) => {
+                clearTable();
+                getUsername();
+            }
+        })
+    }
+
+    function clearTable() {
+        let table = document.getElementById("tb");
+        while (table.rows.length > 1) {
+            table.deleteRow(1);
+        }
+    }
+
 </script>
 </body>
 </html>

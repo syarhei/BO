@@ -152,7 +152,9 @@ module.exports = (matchService) => {
 
         function deleteMatch(options) {
             return new Promise((resolve, reject) => {
-                matchService.destroy(options.id_match).then(resolve).catch(reject);
+                matchService.destroy({where: {
+                    id_match: options.id_match
+                }}).then(resolve).catch(reject);
             })
         }
     }

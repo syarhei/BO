@@ -48,6 +48,20 @@ table {
     margin-top: 20px;
 }
 
+.dropdown-menu {
+    background-color: #e9e6db;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    background-image: none;
+    background-color: #e9e6db;
+    font-weight: 600;
+}
+
+input[type="button"] {
+    border: 1px solid #444444;
+}
+
 table, td, th {
     border: 2px solid #444444;
 }
