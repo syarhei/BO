@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node index.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,15 @@
     "pg": "^6.2.2",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.30.4"
+  },
+  "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "babel-preset-es2017": "^6.24.1",
+    "jest": "^20.0.3",
+    "supertest": "^3.0.0"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node"
   }
 }

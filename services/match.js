@@ -3,6 +3,7 @@
 module.exports = (matchService) => {
     function getMatchServices(matchService) {
         this.getMatches = getMatches;
+        this.getMatch_byId = getMatch_byId;
         this.searchMatches = searchMatches;
         this.checkTeam = checkTeam;
         this.checkMatchResult = checkMatchResult;
@@ -15,6 +16,12 @@ module.exports = (matchService) => {
             let limit = Number(options.limit);
             return new Promise((resolve, reject) => {
                 matchService.findAll({ offset: offset, limit: limit}).then(resolve).catch(reject);
+            })
+        }
+        
+        function getMatch_byId(options) {
+            return new Promise((resolve, reject) => {
+                matchService.findById(options.id_match).then(resolve).catch(reject);
             })
         }
 
