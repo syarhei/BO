@@ -34,7 +34,8 @@ module.exports = (data) => {
         }),
         create: jest.fn((data) => Promise.resolve(data)),
         update: jest.fn((data) => Promise.resolve([1, data])),
-        destroy: jest.fn((params) => Promise.resolve(1))
+        destroy: jest.fn((params) => Promise.resolve(1)),
+        increment: jest.fn((i, options) => Promise.resolve(data))
 
     };
 
@@ -44,6 +45,7 @@ module.exports = (data) => {
         mock.create.mockClear();
         mock.update.mockClear();
         mock.destroy.mockClear();
+        mock.increment.mockClear();
     };
 
     return mock;
