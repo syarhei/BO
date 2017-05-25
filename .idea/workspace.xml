@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41f04052-b50e-4498-b2be-a4948aa4a055" name="Default" comment="swagger + validation">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view/info.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view/yaml/info.yaml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/api.js" afterPath="$PROJECT_DIR$/controllers/api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/bet.js" afterPath="$PROJECT_DIR$/controllers/bet.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/client.js" afterPath="$PROJECT_DIR$/controllers/client.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/match.js" afterPath="$PROJECT_DIR$/controllers/match.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/services/client.js" afterPath="$PROJECT_DIR$/services/client.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/services/match.js" afterPath="$PROJECT_DIR$/services/match.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/supertests/app.test.js" afterPath="$PROJECT_DIR$/tests/supertests/app.test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/bets.html" afterPath="$PROJECT_DIR$/view/bets.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/matches.html" afterPath="$PROJECT_DIR$/view/matches.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/register.html" afterPath="$PROJECT_DIR$/view/register.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/teams.html" afterPath="$PROJECT_DIR$/view/teams.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -32,7 +20,18 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="451">
+              <caret line="38" column="9" lean-forward="false" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -106,6 +105,8 @@
         <option value="$PROJECT_DIR$/view/matches.html" />
         <option value="$PROJECT_DIR$/controllers/bet.js" />
         <option value="$PROJECT_DIR$/view/bets.html" />
+        <option value="$PROJECT_DIR$/view/info.html" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -157,6 +158,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="BO" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BO" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BO" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -281,7 +296,7 @@
       <workItem from="1495660618470" duration="1254000" />
       <workItem from="1495691103882" duration="1741000" />
       <workItem from="1495697450057" duration="9047000" />
-      <workItem from="1495709881659" duration="137000" />
+      <workItem from="1495709881659" duration="1695000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1494799865717</created>
@@ -416,11 +431,18 @@
       <option name="project" value="LOCAL" />
       <updated>1495641466130</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="swagger + validation">
+      <created>1495710039044</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1495710039044</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132317000" />
+    <option name="totallyTimeSpent" value="133875000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -433,10 +455,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24524313" sideWeight="0.49599084" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.50845665" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.49154335" order="10" side_tool="false" content_ui="tabs" />
@@ -503,13 +525,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -876,14 +891,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/view/info.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="103" column="10" lean-forward="false" selection-start-line="103" selection-start-column="10" selection-end-line="103" selection-end-column="10" />
+        <state relative-caret-position="198">
+          <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
           <folding>
-            <marker date="1495687396000" expanded="true" signature="441299:441303" ph="&lt;" />
-            <marker date="1495687396000" expanded="true" signature="441306:441310" ph="&gt;" />
-            <marker date="1495687396000" expanded="true" signature="441494:441498" ph="&lt;" />
-            <marker date="1495687396000" expanded="true" signature="441501:441505" ph="&gt;" />
+            <marker date="1495712536272" expanded="true" signature="441299:441303" ph="&lt;" />
+            <marker date="1495712536272" expanded="true" signature="441306:441310" ph="&gt;" />
+            <marker date="1495712536272" expanded="true" signature="441494:441498" ph="&lt;" />
+            <marker date="1495712536272" expanded="true" signature="441501:441505" ph="&gt;" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="38" column="9" lean-forward="false" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
