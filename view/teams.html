@@ -124,15 +124,23 @@
         let team = {
             full_name: document.getElementById("full_name").value,
             owner: document.getElementById("owner").value,
-            year_foundation: document.getElementById("year").value,
+            year_foundation: document.getElementById("year").value
         };
         $.ajax({
             type: 'post',
             data: team,
             url: 'api/teams',
             success: (result) => {
-                clearTable();
-                getUsername();
+                if (result.message != undefined) {
+                    alert(result.message);
+                }
+                else {
+                    clearTable();
+                    getUsername();
+                }
+            },
+            error: (error) => {
+                alert(error);
             }
         })
     }
@@ -143,20 +151,13 @@
             data: { full_name: name },
             url: 'api/teams',
             success: (result) => {
-                clearTable();
-                getUsername();
-            }
-        })
-    }
-
-    function deleteTeam1() {
-        $.ajax({
-            type: 'delete',
-            data: { full_name: document.getElementById("delete_name").value },
-            url: 'api/teams',
-            success: (result) => {
-                clearTable();
-                getTeams();
+                if (result.error != undefined) {
+                    alert(result.error);
+                }
+                else {
+                    clearTable();
+                    getUsername();
+                }
             }
         })
     }

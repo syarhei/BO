@@ -9,7 +9,7 @@ module.exports = (teamService, matchService, clientService, betService) => {
     let matchController = require('./match') (matchService, teamService, betService, clientService);
     let sessionController = require('./session') (clientService);
     let clientController = require('./client') (clientService);
-    let betController = require('./bet') (betService, clientService);
+    let betController = require('./bet') (betService, clientService, matchService);
 
     router.use('/teams', teamController);
     router.use('/matches', matchController);

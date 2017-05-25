@@ -6,6 +6,7 @@ module.exports = (matchService) => {
         this.getMatch_byId = getMatch_byId;
         this.searchMatches = searchMatches;
         this.checkTeam = checkTeam;
+        this.checkMatch = checkMatch;
         this.checkMatchResult = checkMatchResult;
         this.createMatch = generateMatch;
         this.generateResult_byId = generateResult_byId;
@@ -50,6 +51,11 @@ module.exports = (matchService) => {
                         id_team_2: options.full_name
                     }
                 }}).then(resolve).catch(reject);
+            })
+        }
+        function checkMatch(options) {
+            return new Promise((resolve, reject) => {
+                matchService.findById(options.id_match).then(resolve).catch(reject);
             })
         }
 

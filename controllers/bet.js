@@ -2,7 +2,7 @@
 
 const express = require('express');
 
-module.exports = (betController, clientController) => {
+module.exports = (betController, clientController, matchController) => {
     const bet = express.Router();
 
     bet.get('/', (request, response) => {
@@ -27,12 +27,15 @@ module.exports = (betController, clientController) => {
     bet.post('/', (request, response) => {
         let params = request.body;
         let nickname = response.nickname;
-        clientController.updateBalance_createBet({ cost: -params.cost, nickname: nickname }).then((data) => {
-            betController.createBet(params, nickname).then((result) => {
-                response.json(result);
+        matchController.checkMatch({ id_match: params.id_match }).then((result) => {
+            if (result == null) throw 'id_match is not found';
+            return clientController.updateBalance_createBet({ cost: -params.cost, nickname: nickname }).then((data) => {
+                return betController.createBet(params, nickname).then((result) => {
+                    response.json(result);
+                })
             })
         }).catch((error) => {
-            response.json(error);
+            response.json({ error: error });
         })
     });
 

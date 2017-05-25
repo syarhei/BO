@@ -14,7 +14,7 @@ function input(user, pass) {
 }
 
 function getTeams() {
-    return app_test.get('/api/teams?limit=5&offset=1')
+    return app_test.get('/api/teams?limit=20&offset=1')
         .set('Cookie', token)
         .expect(200);
 }
@@ -26,7 +26,7 @@ function getMatches() {
 }
 
 function getBets() {
-    return app_test.get('/api/bets?offset=1&limit=100')
+    return app_test.get('/api/bets?offset=1&limit=20')
         .set('Cookie', token)
         .expect(200);
 }

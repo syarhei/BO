@@ -147,15 +147,18 @@
         let match = {
             id_team_1: document.getElementById("team_1").value,
             id_team_2: document.getElementById("team_2").value,
-            place: document.getElementById("place").value,
+            place: document.getElementById("place").value
         };
         $.ajax({
             type: 'post',
             data: match,
             url: 'api/matches',
             success: (result) => {
-                clearTable();
-                getUsername();
+                if (result.error != undefined) alert(result.error);
+                else {
+                    clearTable();
+                    getUsername();
+                }
             }
         })
     }
@@ -166,8 +169,11 @@
             data: { id_match: name },
             url: 'api/matches',
             success: (result) => {
-                clearTable();
-                getUsername();
+                if (result.message != undefined) alert(result.message);
+                else {
+                    clearTable();
+                    getUsername();
+                }
             }
         })
     }

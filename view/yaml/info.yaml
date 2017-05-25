@@ -1,0 +1,332 @@
+swagger: '2.0'
+info:
+  title: BO API
+  description: API документация приложения Bookmaker-Office
+  version: 1.0.0
+host: localhost:3300
+schemes:
+  - http
+basePath: /api
+paths:
+  /matches:
+    get:
+      summary: Получаем список матчей
+      parameters:
+        - name: limit
+          in: query
+          description: количество команд на странице
+          type: number
+        - name: offset
+          in: query
+          description: номер страницы
+          type: number
+        - name: full_name
+          in: query
+          description: название команды принимающей участие в матче
+          type: number
+      tags:
+        - matches
+      responses:
+        '200':
+          description: Массив команд
+        default:
+          description: Ошибка
+    post:
+      summary: Добавление команд
+      parameters:
+        - name: match
+          in: body
+          schema:
+            $ref: '#/definitions/match'
+          description: Отправляем match в теле запроса
+          required: true
+      tags:
+        - matches
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Удаление матча
+      parameters:
+        - name: id_match
+          in: body
+          description: Отправляем id в теле запроса
+          required: true
+          schema:
+            type: string
+      tags:
+        - matches
+      responses:
+        '200':
+          description: OK
+  /matches/{id}/results/generation:
+    post:
+      summary: Добавление команд
+      parameters:
+        - name: id
+          in: path
+          description: id матча для генерации результата
+          required: true
+          type: integer
+        - name: match
+          in: body
+          schema:
+            $ref: '#/definitions/match'
+          description: Отправляем match в теле запроса
+          required: true
+      tags:
+        - matches
+      responses:
+        '200':
+          description: OK
+  /teams:
+    get:
+      summary: Получаем список команд
+      parameters:
+        - name: limit
+          in: query
+          description: количество команд на странице
+          type: number
+        - name: offset
+          in: query
+          description: номер страницы
+          type: number
+      tags:
+        - teams
+      responses:
+        '200':
+          description: Массив команд
+        default:
+          description: Ошибка
+    post:
+      summary: Добавление команд
+      parameters:
+        - name: team
+          in: body
+          schema:
+            $ref: '#/definitions/team'
+          description: Отправляем team в теле запроса
+          required: true
+      tags:
+        - teams
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Удаление команд
+      parameters:
+        - name: full_name
+          in: body
+          description: Отправляем id в теле запроса
+          required: true
+          schema:
+            type: string
+      tags:
+        - teams
+      responses:
+        '200':
+          description: OK
+  /users:
+    get:
+      summary: Получаем список пользователей
+      parameters:
+        - name: limit
+          in: query
+          description: количество команд на странице
+          type: number
+        - name: offset
+          in: query
+          description: номер страницы
+          type: number
+      tags:
+        - users
+      responses:
+        '200':
+          description: OK
+        default:
+          description: Error
+    post:
+      summary: Регистрация
+      parameters:
+        - name: client
+          in: body
+          schema:
+            $ref: '#/definitions/client'
+          description: Отправляем client в теле запроса
+          required: true
+      tags:
+        - users
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Удаление пользователя
+      parameters:
+        - name: nickname
+          in: body
+          description: Отправляем id в теле запроса
+          required: true
+          schema:
+            type: string
+      tags:
+        - users
+      responses:
+        '200':
+          description: OK
+  /sessions:
+    post:
+      summary: Вход в систему
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+                format: password
+          description: Отправляем body в теле запроса
+          required: true
+      tags:
+        - sessions
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Удаляет токен из куки для входа в систему
+      tags:
+        - sessions
+      responses:
+        '200':
+          description: OK
+  /bets:
+    get:
+      summary: Получаем список ставок
+      parameters:
+        - name: limit
+          in: query
+          description: количество ставок на странице
+          type: number
+        - name: offset
+          in: query
+          description: номер страницы
+          type: number
+      tags:
+        - bets
+      responses:
+        '200':
+          description: OK
+        default:
+          description: Error
+    post:
+      summary: Добавление ставки
+      parameters:
+        - name: bet
+          in: body
+          schema:
+            $ref: '#/definitions/bet'
+          description: Отправляем bet в теле запроса
+          required: true
+      tags:
+        - bets
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Удаление ставки
+      parameters:
+        - name: id_bet
+          in: body
+          description: Отправляем id в теле запроса
+          required: true
+          schema:
+            type: string
+      tags:
+        - bets
+      responses:
+        '200':
+          description: OK
+definitions:
+  team:
+    type: object
+    properties:
+      full_name:
+        type: string
+        description: Название клуба
+      owner:
+        type: string
+        description: Владелец клуба
+      year_foundation:
+        type: integer
+        description: год основания
+      games_team:
+        type: integer
+        description: количество игр
+      win_team:
+        type: integer
+        description: количеств побед
+      draw_team:
+        type: integer
+        description: количество ничьих
+      lose_team:
+        type: integer
+        description: количество поражений
+  match:
+    type: object
+    properties:
+      id_match:
+        type: string
+        description: id матча
+      id_team_1:
+        type: string
+        description: название 1ой команды
+      id_team_2:
+        type: integer
+        description: название 2ой коанды
+      win_1:
+        type: integer
+        format: float
+        description: коэффициент на победу 1ой команды
+      draw:
+        type: integer
+        format: float
+        description: коэффициент на начью
+      win_2:
+        type: integer
+        format: float
+        description: коэффициент на победу 2ой команды
+      place:
+        type: integer
+        description: место проведения матча
+      result:
+        type: string
+        description: результат матча
+  client:
+    type: object
+    properties:
+      nickname:
+        type: string
+        description: уникальный никнейм пользователя
+      password:
+        type: string
+        description: пароль для входа в систему
+      address:
+        type: string
+        description: адресс проживания
+      sex:
+        type: string
+        description: пол [M|W]
+  bet:
+    type: object
+    properties:
+      id_match:
+        type: integer
+        description: id матча
+      cost:
+        type: integer
+        description: цена ставки
+      result:
+        type: string
+        description: На какой результат ставим? [W1|D|W2]

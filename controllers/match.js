@@ -27,10 +27,12 @@ module.exports = (matchController, teamController, betController, clientControll
         let params = request.body;
         let id_team_1, id_team_2;
         teamController.getTeam_byId({ full_name: params.id_team_1 }).then((result) => {
+            if (result == null) throw 'team_1 is not found';
             id_team_1 = result.toJSON();
             return teamController.getTeam_byId({ full_name: params.id_team_2 });
 
         }).then((result) => {
+            if (result == null) throw 'team_2 is not found';
             id_team_2 = result.toJSON();
             return matchController.createMatch(id_team_1, id_team_2, params.place);
 
@@ -38,7 +40,7 @@ module.exports = (matchController, teamController, betController, clientControll
             response.json(result);
 
         }).catch((error) => {
-            response.json(error);
+            response.json({ error: error });
         });
     });
 

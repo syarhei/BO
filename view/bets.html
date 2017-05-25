@@ -128,8 +128,11 @@
             data: bet,
             url: 'api/bets',
             success: (result) => {
-                clearTable();
-                getUsername();
+                if (result.error != undefined) alert(result.error.message);
+                else {
+                    clearTable();
+                    getUsername();
+                }
             }
         })
     }

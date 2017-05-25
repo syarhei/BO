@@ -58,7 +58,7 @@ module.exports = (clientController) => {
         let nickname = response.nickname;
         if (token == undefined) response.json({message: "login, please!"});
         else {
-            clientController.deleteClient(nickname).then((result) => {
+            clientController.deleteClient({ nickname: nickname }).then((result) => {
                 response.clearCookie("token");
                 response.json(result);
             }).catch((error) => {
