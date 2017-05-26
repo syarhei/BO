@@ -95,7 +95,7 @@ module.exports = (clientService) => {
         function updateClientBalance(options, coefficient) {
             return new Promise((resolve, reject) => {
                 return getClient_byId(options).then((bet) => {
-                    if (bet.balance < options.cost) throw "client: balance < cost";
+                    if (bet.balance < Math.abs(options.cost)) throw { message: 'Your bet exceed balance'};
                     return bet.increment('balance', {by: options.cost*coefficient}).then(resolve);
                 }).catch(reject);
             })

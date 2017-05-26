@@ -28,6 +28,7 @@ module.exports = (betController, clientController, matchController) => {
         let params = request.body;
         let nickname = response.nickname;
         matchController.checkMatch({ id_match: params.id_match }).then((result) => {
+            if (params.cost < 0) throw { message: 'Your bet is less 0'};
             if (result == null) throw 'id_match is not found';
             return clientController.updateBalance_createBet({ cost: -params.cost, nickname: nickname }).then((data) => {
                 return betController.createBet(params, nickname).then((result) => {
