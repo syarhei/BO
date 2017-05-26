@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css"/>
+    <script src="lib/jquery-3.0.0.min.js"></script>
+    <script src="lib/jquery-migrate-1.4.1.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/Chart.bundle.js"></script>
+    <script src="lib/Chart.bundle.min.js"></script>
+    <title>BO | Diagram</title>
+</head>
+<body>
+    <div class="Header" align="center">
+        <div class="A">
+            <a href="teams.html">Команды</a>
+            <a href="matches.html">Матчи</a>
+            <a href="bets.html">Ставки</a>
+        </div>
+        <div class="User">
+            <div class="dropdown pull-right">
+                <a id="a" href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    guest
+                </a>
+                <ul id="menu" class="dropdown-menu">
+                    <li><a href="#" onclick="getBalance()">Баланс</a></li>
+                    <li><a href="#" onclick="deleteSession()">Выйти</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="div-canvas" align="center">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script>
+
+        getUsername();
+        drawDiagram();
+
+        function drawDiagram() {
+            $.ajax({
+                type: 'get',
+                url: 'api/users/diagram'
+            });
+            let ctx = document.getElementById('canvas');
+            let myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [1, 2, 3, 4],
+                    datasets: [{
+                        //lineTension: 0,
+                        fill: false,
+                        borderColor: 'black',
+                        //borderWidth: 4,
+                        //backgroundColor: 'transparent',
+                        borderDash: [3, 5],
+                        pointBorderColor: 'orange',
+                        pointBackgroundColor: 'orange',
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        //pointHitRadius: 30,
+                        pointBorderWidth: 2,
+                        //pointStyle: 'rectRounded', -- default: circle
+                        label: 'баланс',
+                        data: [50000, 45000, 48000, 58000]
+                    }]
+                },
+                options: {
+                    legend: {
+
+                    }
+                }
+            });
+        }
+
+        function getUsername() {
+            $.ajax({
+                type: 'get',
+                url: '/api/users/nickname',
+                success: (result) => {
+                    if (result.message == undefined)
+                        if (result.error == 'Not permissions')
+                            document.getElementById("a").text = 'guest';
+                        else
+                            alert(result.error);
+                    else {
+                        document.getElementById("a").text = result.message;
+                    }
+                }
+            })
+        }
+
+
+    </script>
+</body>
+</html>
