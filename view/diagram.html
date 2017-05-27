@@ -45,46 +45,53 @@
                 type: 'get',
                 url: 'api/bets/statistic',
                 success: (data) => {
-                    let array = data.message;
-                    console.log(array);
-                    let ctx = document.getElementById('canvas');
-                    let myChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: array.ids,
-                            datasets: [{
-                                //lineTension: 0,
-                                fill: false,
-                                borderColor: 'black',
-                                //borderWidth: 4,
-                                //backgroundColor: 'transparent',
-                                borderDash: [3, 5],
-                                pointBorderColor: 'orange',
-                                pointBackgroundColor: 'orange',
-                                pointRadius: 5,
-                                pointHoverRadius: 7,
-                                //pointHitRadius: 30,
-                                pointBorderWidth: 2,
-                                //pointStyle: 'rectRounded', -- default: circle
-                                label: 'баланс',
-                                data: array.diffs
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        fontColor: "white"
-                                    }
-                                }],
-                                xAxes: [{
-                                    ticks: {
-                                        fontColor: "white"
-                                    }
+                    try {
+                        let array = data.message;
+                        if (array == undefined) throw 'Not permissions';
+                        let ctx = document.getElementById('canvas');
+                        let myChart = new Chart(ctx, {
+                            type: array.type,
+                            data: {
+                                labels: array.ids,
+                                datasets: [{
+                                    //lineTension: 0,
+                                    fill: false,
+                                    borderColor: 'black',
+                                    //borderWidth: 4,
+                                    backgroundColor: 'lightseagreen',
+                                    borderDash: [3, 5],
+                                    pointBorderColor: 'orange',
+                                    pointBackgroundColor: 'orange',
+                                    pointRadius: 5,
+                                    pointHoverRadius: 7,
+                                    //pointHitRadius: 30,
+                                    pointBorderWidth: 2,
+                                    //pointStyle: 'rectRounded', -- default: circle
+                                    label: 'баланс',
+                                    data: array.diffs
                                 }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            fontColor: "white"
+                                        }
+                                    }],
+                                    xAxes: [{
+                                        ticks: {
+                                            fontColor: "white"
+                                        }
+                                    }]
+                                }
                             }
-                        }
-                    });
+                        });
+                    } catch (error) {
+                        alert(error);
+                    }
+                },
+                error: (error) => {
+                    alert(error);
                 }
             });
 

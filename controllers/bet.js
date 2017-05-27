@@ -43,8 +43,22 @@ module.exports = (betController, clientController, matchController) => {
                     ids.reverse();
                     diffs.reverse();
                     diffs.push(client.balance);
-                    response.json({ message: { ids: ids, diffs: diffs}});
+                    response.json({ message: { ids: ids, diffs: diffs, type: 'line'}});
                 });
+            })
+        }
+        else if (client_type == 'admin') {
+            clientController.getClients({ offset: 1, limit: 50}).then((clients) => {
+                let nicks = [];
+                let balls = [];
+                clients.sort((a, b) => {
+                    return b.balance - a.balance;
+                });
+                for (let client in clients) {
+                    nicks.push(clients[client].nickname);
+                    balls.push(clients[client].balance);
+                }
+                response.json({ message: { ids: nicks, diffs: balls, type: 'bar'}});
             })
         }
         else response.json({ message: 'Not permissions'});
