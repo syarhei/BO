@@ -24,6 +24,32 @@ module.exports = (betController, clientController, matchController) => {
         }
     });
 
+    bet.get('/statistic', (request, response) => {
+        let params = request.query;
+        let nickname = response.nickname;
+        let client_type = response.client_type;
+        if (client_type == 'user') {
+            clientController.getClient_byId({ nickname: nickname}).then((client) => {
+                let balance = client.balance;
+                betController.getBets_byClient({offset: 1, limit: 50}, nickname).then((bets) => {
+                    let ids = [];
+                    let diffs = [];
+                    for (let bet = bets.length - 1; bet >= 0; bet--) {
+                        balance = balance - bets[bet].difference;
+                        ids.push('id: ' + bets[bet].id_bet);
+                        diffs.push(balance);
+                    }
+                    ids.push('start');
+                    ids.reverse();
+                    diffs.reverse();
+                    diffs.push(client.balance);
+                    response.json({ message: { ids: ids, diffs: diffs}});
+                });
+            })
+        }
+        else response.json({ message: 'Not permissions'});
+    });
+
     bet.post('/', (request, response) => {
         let params = request.body;
         let nickname = response.nickname;

@@ -56,10 +56,10 @@ module.exports = (matchController, teamController, betController, clientControll
             }
         }).then((match) => {
             return betController.getBets_byMatch(id_match, match.result).then((bets) => {  // получаем все выигрышные ставки с данным результатом
-                return clientController.updateBalance(bets, match.coefficient);  // обновляем таблицу clients согласно каждой ставке
+                return clientController.updateBalance(bets, match.coefficient).then((coefficient) => {  // обновляем таблицу clients согласно каждой ставке
+                    betController.finishBets(id_match, coefficient, match.result).then(response.json({ message: 'OK'}));
+                })
             })
-        }).then((obj) => {
-            betController.finishBets(id_match).then(response.json(obj));
         }).catch((error) => {
             response.json(error);
         });

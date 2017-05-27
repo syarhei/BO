@@ -11,7 +11,8 @@
       "/api/bets",
       "/api/users",
       "/api/users/nickname",
-      "/api/users/balance"
+      "/api/users/balance",
+      "/api/bets/statistic"
     ],
     "DELETE": [
       "/api/sessions",

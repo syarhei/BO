@@ -44,15 +44,36 @@ module.exports = (betService) => {
             })
         }
 
-        function finishBets(id_match) {
+        function finishBets(id_match, coefficient, result) {
+            return updateDifference(id_match, coefficient, result).then(() => {
+                return new Promise((resolve, reject) => {
+                    let bet = {
+                        isFinished: 'Y'
+                    };
+                    betService.update(bet, {
+                        where: {
+                            id_match: id_match,
+                            isFinished: 'N'
+                        }
+                    }).then(resolve).catch(reject);
+                })
+            })
+        }
+
+        function updateDifference(id_match, coefficient, result) {
             return new Promise((resolve, reject) => {
-                let bet = {
-                    isFinished: 'Y'
-                };
-                betService.update(bet, { where: {
-                    id_match: id_match,
-                    isFinished: 'N'
-                }}).then(resolve).catch(reject);
+                return getBets_byMatch(id_match, result).then((bets) => {
+                    let promise = [];
+                    for (let bet in bets)
+                        promise.push(betDifference(bets[bet], coefficient));
+                    Promise.all(promise).then(resolve(coefficient)).catch(reject);
+                }).catch(reject);
+            })
+        }
+
+        function betDifference(bet, coefficient) {
+            return new Promise((resolve, reject) => {
+                return bet.increment('difference', {by: (bet.cost*coefficient)}).then(resolve).catch(reject);
             })
         }
 
@@ -61,7 +82,8 @@ module.exports = (betService) => {
                 nickname: client,
                 id_match: options.id_match,
                 cost: options.cost,
-                result: options.result
+                result: options.result,
+                difference: -options.cost
             };
             return new Promise((resolve, reject) => {
                 betService.create(bet).then(resolve).catch(reject);

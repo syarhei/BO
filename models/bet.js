@@ -36,6 +36,9 @@ module.exports = (sequelize, connect, match, client) => {
         isFinished: {  //  завершена ли ставка или нет, когда ставка завершена - она не активна
             type: sequelize.CHAR(1),
             defaultValue: 'N'
+        },
+        difference: {  //  прописывается разница, т.е. ушел ли пользователь в плюс или в минус
+            type: sequelize.INTEGER
         }
     })
 };

@@ -82,7 +82,7 @@ module.exports = (clientService) => {
                     promise.push(updateClientBalance(bets[bet], coefficient));
                     promise.push(updateAdminBalance(bets[bet], coefficient));
                 }
-                Promise.all(promise).then(resolve(bets)).catch(reject);
+                Promise.all(promise).then(resolve(coefficient)).catch(reject);
             })
         }
         
