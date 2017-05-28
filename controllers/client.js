@@ -2,6 +2,7 @@
 
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const crypt = require('bcryptjs');
 const config = require('../config.json');
 
 module.exports = (clientController) => {
@@ -15,16 +16,7 @@ module.exports = (clientController) => {
             response.json(error);
         })
     });
-/*
-    client.get('/:nickname', (request, response) => {
-        let nickname = response.nickname;
-        let params = request.params;
-        if (nickname != 'admin' && nickname != params.nickname)
-            response.json({error: "Not permissions"});
-        else
-            response.json({message: nickname});
-    });
-*/
+
     client.get('/nickname', (request, response) => {
         response.json({ message: response.nickname, client_type: response.client_type });
     });
@@ -42,6 +34,8 @@ module.exports = (clientController) => {
     client.post('/', (request, response) => {
         let params = request.body;
         if (request.cookies.token == undefined) {
+            let hash = crypt.hashSync(params.password, 8);
+            params.password = hash;
             clientController.createClient(params).then((result) => {
                 let token = jwt.sign({ nickname: params.nickname, client_type: result.client_type}, config.jwt.key, { expiresIn: config.jwt.time});
                 response.cookie('token', token);

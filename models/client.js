@@ -7,10 +7,7 @@ module.exports = (sequelize, connect) => {
             primaryKey: true
         },
         password: {
-            type: sequelize.STRING(20),
-            validate: {
-                len: [8, 20]
-            },
+            type: sequelize.STRING,
         },
         client_type: {
             type: sequelize.STRING(5),
