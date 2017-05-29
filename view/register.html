@@ -1,172 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
     <script src="lib/jquery-3.0.0.min.js"></script>
     <script src="lib/jquery-migrate-1.4.1.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
-    <title>Main | BO</title>
+    <meta charset="UTF-8">
+    <title>Welcome | BO</title>
+
 </head>
 <body>
-<div class="Header" align="center">
-    <div class="A">
-        <a href="teams.html">Команды</a>
-        <a href="matches.html">Матчи</a>
-        <a href="bets.html">Ставки</a>
-    </div>
-    <div class="User">
-        <div class="dropdown pull-right">
-            <a id="a" href="#" data-toggle="dropdown" class="dropdown-toggle">
-                guest
-            </a>
-            <ul id="menu" class="dropdown-menu">
-                <li><a href="#" onclick="getBalance()">Баланс</a></li>
-                <li><a href="#" onclick="deleteSession()">Выйти</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
 <div>
-    <table id="tb" align="center">
-        <tr>
-            <th>ставка</th>
-            <th>матч</th>
-            <th>пользователь</th>
-            <th>цена</th>
-            <th>результат</th>
-            <th>завершена</th>
-            <th id="del"></th>
-        </tr>
-    </table>
+    <header></header>
 </div>
-<div id="add" style="margin-top: 20px; visibility: hidden" align="center">
-    <input id="id_match" class="Team" type="text" placeholder="матч">
-    <input id="cost" class="Team" type="text" placeholder="цена">
-    <input id="result" class="Team" type="text" placeholder="результат">
-    <input class="Team" type="button" value="Добавить" style="margin-left: 20px" onclick="addBet()">
+
+<div align="center">
+    <form>
+        <p>
+            <label>
+                Bookmaker Office
+            </label>
+        </p>
+        <p>
+            <input type="text" id="nickname" placeholder="username"> <br>
+        </p>
+        <p>
+            <input type="password" id="password" placeholder="password"> <br>
+        </p>
+        <p>
+            <input type="text" id="address" placeholder="address [city]"> <br>
+        </p>
+        <p>
+            <input type="text" id="sex" placeholder="sex [M|W]"> <br>
+        </p>
+        <p>
+            <input type="button" value="sign in" id="SingIn" onclick="signIn()">
+            <input type="button" style="margin-left: 10px" value="sign up" id="SingUp" onclick="signUp()">
+        </p>
+    </form>
 </div>
-<script type="text/javascript">
 
-    getUsername();
-
-    function getUsername() {
-        $.ajax({
-            type: 'get',
-            url: '/api/users/nickname',
-            success: (result) => {
-                if (result.message == undefined)
-                    if (result.error == 'Not permissions')
-                        document.getElementById("a").text = 'guest';
-                    else
-                        alert(result.error);
-                else {
-                    document.getElementById("a").text = result.message;
-                    if (result.client_type == 'user') {
-                        document.getElementById("add").style.visibility = "visible";
-                    }
-                }
-                getBets(result.client_type);
-            }
-        })
+<script>
+    function signIn() {
+        window.location.href = '/';
     }
 
-    function deleteSession() {
-        $.ajax({
-            type: 'delete',
-            url: '/api/sessions',
-            success: (result) => {
-                window.location.href = '/';
-            }
-        })
-    }
-
-    function getBets(type) {
-        $.ajax({
-            type: 'get',
-            url: '/api/bets?limit=20&offset=1',
-            success: (result) => {
-                let tableBody = document.createElement("tbody");
-                for (let i = 0; i < result.length; i++) {
-                    let row = document.createElement("tr");
-                    for (let e in result[i]) {
-                        if (result[i].hasOwnProperty(e)) {
-                            let cell = document.createElement("td");
-                            let cellText = document.createTextNode(result[i][e]);
-                            cell.appendChild(cellText);
-                            row.appendChild(cell);
-                        }
-                    }
-                    if (type == 'admin' || type == 'user') {
-                        let cell = document.createElement("td");
-                        let button = document.createElement('input');
-                        button.setAttribute('type', 'button');
-                        button.setAttribute('value', 'Удалить');
-                        let name = result[i].id_bet;
-                        button.setAttribute('onclick', 'deleteBet("' + name + '")');
-                        button.className = "Team";
-                        cell.appendChild(button);
-                        row.appendChild(cell);
-                    }
-                    tableBody.appendChild(row);
-                }
-                document.getElementById("tb").appendChild(tableBody);
-            }
-        })
-    }
-
-    function addBet() {
-        let bet = {
-            id_match: document.getElementById("id_match").value,
-            cost: document.getElementById("cost").value,
-            result: document.getElementById("result").value,
+    function signUp() {
+        let user = {
+            nickname: document.getElementById("nickname").value,
+            password: document.getElementById("password").value,
+            address: document.getElementById("address").value,
+            sex: document.getElementById("sex").value
         };
         $.ajax({
             type: 'post',
-            data: bet,
-            url: 'api/bets',
+            data: user,
+            url: '/api/users',
             success: (result) => {
-                if (result.error != undefined) alert(result.error.message);
+                if (result.error)
+                    if (result.error.message)
+                        alert(result.error.message);
+                    else alert(result.error);
                 else {
-                    clearTable();
-                    getUsername();
+                    window.location.href = 'main.html';
                 }
+            },
+            error: (error) => {
+                alert(error);
             }
-        })
+        });
     }
-
-    function deleteBet(name) {
-        $.ajax({
-            type: 'delete',
-            data: { id_bet: name },
-            url: 'api/bets',
-            success: (result) => {
-                clearTable();
-                getUsername();
-            }
-        })
-    }
-
-    function getBalance() {
-        $.ajax({
-            type: 'get',
-            url: 'api/users/balance',
-            success: (result) => {
-                alert(result.balance);
-                console.log(result.balance);
-            }
-        })
-    }
-
-    function clearTable() {
-        let table = document.getElementById("tb");
-        while (table.rows.length > 1) {
-            table.deleteRow(1);
-        }
-    }
-
 </script>
+
 </body>
 </html>

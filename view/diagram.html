@@ -18,6 +18,7 @@
             <a href="teams.html">Команды</a>
             <a href="matches.html">Матчи</a>
             <a href="bets.html">Ставки</a>
+            <a href="diagram.html">Статистика</a>
         </div>
         <div class="User">
             <div class="dropdown pull-right">
@@ -110,6 +111,27 @@
                     else {
                         document.getElementById("a").text = result.message;
                     }
+                }
+            })
+        }
+
+        function getBalance() {
+            $.ajax({
+                type: 'get',
+                url: 'api/users/balance',
+                success: (result) => {
+                    alert(result.balance);
+                    console.log(result.balance);
+                }
+            })
+        }
+
+        function deleteSession() {
+            $.ajax({
+                type: 'delete',
+                url: '/api/sessions',
+                success: (result) => {
+                    window.location.href = '/';
                 }
             })
         }

@@ -27,7 +27,8 @@
     "mysql": "^2.13.0",
     "pg": "^6.2.2",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^3.30.4"
+    "sequelize": "^3.30.4",
+    "siege": "^0.2.0"
   },
   "devDependencies": {
     "babel-jest": "^20.0.3",

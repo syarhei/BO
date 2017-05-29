@@ -39,12 +39,12 @@ module.exports = (clientController) => {
             clientController.createClient(params).then((result) => {
                 let token = jwt.sign({ nickname: params.nickname, client_type: result.client_type}, config.jwt.key, { expiresIn: config.jwt.time});
                 response.cookie('token', token);
-                response.json(result);
+                response.json({ message: result });
             }).catch((error) => {
-                response.json(error);
+                response.json({ error: error });
             })
         }
-        else response.json({message: "logout, please!"});
+        else response.json({error: "logout, please!"});
     });
 
     client.delete('/', (request, response) => {

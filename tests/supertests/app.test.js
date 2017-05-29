@@ -33,7 +33,7 @@ function getBets() {
 
 describe('app test', () => {
     beforeAll( async () => {
-        let user = await input('admin', '12345678');
+        let user = await input('admin', 'admin');
         token = user.headers['set-cookie'][0];
         console.log(token);
     });

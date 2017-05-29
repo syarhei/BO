@@ -16,6 +16,7 @@
         <a href="teams.html">Команды</a>
         <a href="matches.html">Матчи</a>
         <a href="bets.html">Ставки</a>
+        <a href="diagram.html">Статистика</a>
     </div>
     <div class="User">
         <div class="dropdown pull-right">
@@ -23,7 +24,7 @@
                 guest
             </a>
             <ul id="menu" class="dropdown-menu">
-                <li><a href="#">Баланс</a></li>
+                <li><a href="#" onclick="getBalance()">Баланс</a></li>
                 <li><a href="#"onclick="deleteSession()">Выйти</a></li>
             </ul>
         </div>
@@ -74,6 +75,17 @@
                     }
                 }
                 getMatches(result.client_type);
+            }
+        })
+    }
+
+    function getBalance() {
+        $.ajax({
+            type: 'get',
+            url: 'api/users/balance',
+            success: (result) => {
+                alert(result.balance);
+                console.log(result.balance);
             }
         })
     }

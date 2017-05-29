@@ -69,7 +69,8 @@ describe('bets', () => {
             nickname: 'sergei',
             id_match: 1,
             cost: 100,
-            result: 'D'
+            result: 'D',
+            difference: -100
         };
         let array = await serviceBet.createBet(bet, bet.nickname);
         expect(mockBet.create).toHaveBeenCalled();

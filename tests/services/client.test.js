@@ -84,7 +84,7 @@ describe('clients', () => {
     });
     it('update client balance', async () => {
         let array = await serviceClient.updateBalance(bets, 1.78);
-        expect(array).toBeInstanceOf(Array);
+        expect(array).toEqual(1.78);
     });
     it('delete client', async () => {
         let client = {

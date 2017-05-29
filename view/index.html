@@ -44,8 +44,11 @@
                 data: user,
                 url: '/api/sessions',
                 success: (result) => {
-                    if (result.message == undefined)
-                        alert(result.error);
+                    console.log(result);
+                    if (result.error)
+                        if (result.error.message)
+                            alert(result.error.message);
+                        else alert(result.error);
                     else {
                         window.location.href = 'main.html';
                     }
