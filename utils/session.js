@@ -36,15 +36,17 @@ module.exports = () => {
         }
         else {
             jwt.verify(token, config.jwt.key, (error, data) => {
-                if (data.nickname == 'undefined') response.json("Login, token is timing off");
-                response.nickname = data.nickname;  // как другим способом отправить имя в следующий запрос
-                response.client_type = data.client_type;
-                let client_type = data.client_type;
-                if (client_type == 'admin') next();
+                if (data == undefined) response.json({ error: 'Login, token is timing off'});
                 else {
-                    let isIn = checkPermission(client_type, method, path);
-                    if (isIn == false) response.json({error: "Not permissions"});
-                    else next();
+                    response.nickname = data.nickname;  // как другим способом отправить имя в следующий запрос
+                    response.client_type = data.client_type;
+                    let client_type = data.client_type;
+                    if (client_type == 'admin') next();
+                    else {
+                        let isIn = checkPermission(client_type, method, path);
+                        if (isIn == false) response.json({error: "Not permissions"});
+                        else next();
+                    }
                 }
             });
         }
